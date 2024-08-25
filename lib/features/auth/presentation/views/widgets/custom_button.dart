@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
-    super.key,
+    super.key, required this.text,
   });
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +15,8 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 140, vertical: 10),
       ),
       onPressed: (){}, 
-      child: const Text("Sing up", 
-      style: TextStyle(
+      child: Text(text, 
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 18,
       ),

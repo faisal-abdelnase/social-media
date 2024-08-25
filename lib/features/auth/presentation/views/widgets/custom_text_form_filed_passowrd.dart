@@ -17,58 +17,55 @@ class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowr
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        validator: (value) {
-          if(value!.isEmpty){
-            return "Filed is request";
-          }
-      
-          else{
-            return null;
-          }
-        },
-        obscureText: widget.obscureText,
-        decoration:  InputDecoration(
-          hintText: "Password",
-      
-          hintStyle: const TextStyle(
-            color: Colors.grey
-          ),
-          suffixIcon: IconButton(
-            onPressed: (){
-              if(widget.obscureText == true){
-
-                widget.obscureText = false;
-
-                
-                iconData = FontAwesomeIcons.eye;
-                
-
-                setState(() {
-                  
-                });
-              }
-
-              else{
-                widget.obscureText = true;
-                iconData = FontAwesomeIcons.eyeSlash;
-
-                setState(() {
-                  
-                });
-              }
-            }, 
-            icon: Icon(iconData)),
-                
-          border: const OutlineInputBorder(),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.red
-            ),
-          )
+    return TextFormField(
+      validator: (value) {
+        if(value!.isEmpty){
+          return "Filed is request";
+        }
+    
+        else{
+          return null;
+        }
+      },
+      obscureText: widget.obscureText,
+      decoration:  InputDecoration(
+        hintText: "Password",
+    
+        hintStyle: const TextStyle(
+          color: Colors.grey
         ),
+        suffixIcon: IconButton(
+          onPressed: (){
+            if(widget.obscureText == true){
+    
+              widget.obscureText = false;
+    
+              
+              iconData = FontAwesomeIcons.eye;
+              
+    
+              setState(() {
+                
+              });
+            }
+    
+            else{
+              widget.obscureText = true;
+              iconData = FontAwesomeIcons.eyeSlash;
+    
+              setState(() {
+                
+              });
+            }
+          }, 
+          icon: Icon(iconData)),
+              
+        border: const OutlineInputBorder(),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red
+          ),
+        )
       ),
     );
   }

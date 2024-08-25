@@ -51,7 +51,7 @@ class SingUp extends StatelessWidget {
             
             
             
-                const CustomButton(),
+                const CustomButton(text: "Sign up",),
             
                   TextButton(
                     onPressed: (){
