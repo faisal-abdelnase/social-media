@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:social_media_app/features/home/presentation/screen/comment_screen.dart';
+import 'package:social_media_app/features/home/presentation/screen/widgets/custom_icon_button_love.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -10,12 +11,12 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
-  Color iconColor = Colors.white;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.start,
+        
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
@@ -116,27 +117,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               const SizedBox(
                 width: 10,
               ),
-              IconButton(
-            onPressed: (){
-              if(iconColor == Colors.white){
-                iconColor = Colors.red;
-                setState(() {
-                
-                });
-              }
-
-              else{
-                iconColor = Colors.white;
-                setState(() {
-                  
-                });
-              }
-            }, 
-            icon: Icon(
-              FontAwesomeIcons.solidHeart,
-              color: iconColor,
-              ),
-            ),
+              const CustomIconButtonLove(),
 
             IconButton(
             onPressed: (){
@@ -178,7 +159,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 
                   GestureDetector(
                     onTap: () {
-                      
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const CommentScreen()));
                     },
                     child: const Text("Add comment", 
                     style: TextStyle(
@@ -210,3 +192,4 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     );
   }
 }
+
