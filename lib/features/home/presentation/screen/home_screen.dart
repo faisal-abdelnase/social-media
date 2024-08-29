@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/add_post/presentation/views/add_post_page.dart';
 import 'package:social_media_app/features/home/presentation/screen/widgets/home_screen_body.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/profile_page.dart';
 
@@ -65,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
           index: currentIndex,
           children: const [
             HomeScreenBody(),
+            AddPostPage(),
             ProfilePage(),
           ],
         ),
