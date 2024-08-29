@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app/features/home/presentation/screen/widgets/home_screen_body.dart';
+import 'package:social_media_app/features/profile_Page/presentation/views/profile_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,7 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
         body: IndexedStack(
           index: currentIndex,
           children: const [
-            HomeScreenBody()
+            HomeScreenBody(),
+            ProfilePage(),
           ],
         ),
 
