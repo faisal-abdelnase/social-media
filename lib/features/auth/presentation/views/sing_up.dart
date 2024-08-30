@@ -30,9 +30,28 @@ class SingUp extends StatelessWidget {
                 ),
             
             
-                const CircleAvatar(
-                  radius: 35,
-                  backgroundImage: AssetImage("assets/images/images.jpg"),
+                Stack(
+                  children: [
+                    const CircleAvatar(
+                    radius: 35,
+                    // backgroundImage: AssetImage("assets/images/images.jpg"),
+                    backgroundColor: Colors.white,
+                  ),
+
+                  Positioned(
+                    top: 30,
+                    left: 30,
+                    child: IconButton(
+                    
+                      onPressed: (){}, 
+                      icon: const Icon(
+                        Icons.add_circle_outline_rounded,
+                        color: Colors.black,
+                        ),
+                    
+                      ),
+                    ),
+                  ],
                 ),
             
                 const SizedBox(
