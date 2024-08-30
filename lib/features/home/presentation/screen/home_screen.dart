@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media_app/features/add_post/presentation/views/add_post_page.dart';
 import 'package:social_media_app/features/home/presentation/screen/widgets/home_screen_body.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/profile_page.dart';
+import 'package:social_media_app/features/search_page/presentation/views/search_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
           index: currentIndex,
           children: const [
             HomeScreenBody(),
+            SearchPage(),
             AddPostPage(),
             ProfilePage(),
           ],
