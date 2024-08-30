@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/search_page/presentation/views/chat_page.dart';
 import 'package:social_media_app/features/search_page/presentation/views/search_profile_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -81,7 +82,10 @@ class _SearchPageState extends State<SearchPage> {
                               child: Align(
                                 alignment: Alignment.topRight,
                                 child: IconButton(
-                                  onPressed: (){}, 
+                                  onPressed: (){
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => const ChatPage()));
+                                  }, 
                                   icon: const Icon(Icons.chat_bubble_outline)),
                               ),
                             )
