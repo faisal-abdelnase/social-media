@@ -25,12 +25,58 @@ class ChatPage extends StatelessWidget {
         ),
       ),
 
-      body: const Column(
+      body: Column(
         children: [
-          ChatBuble(),
-          ChatBuble(),
-          ChatBubleForFriends(),
-          ChatBubleForFriends(),
+          const Expanded(child: ChatBuble()),
+          const ChatBuble(),
+          const ChatBubleForFriends(),
+          const ChatBubleForFriends(),
+
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "Send Message",
+                hintStyle: const TextStyle(
+                  color: Colors.grey
+                ),
+
+                suffixIcon: IconButton(
+                  onPressed: (){
+
+                  }, 
+                  icon: const Icon(
+                    Icons.send,
+                    color: Colors.blue,
+                    ),
+                    ),
+
+                    prefixIcon: IconButton(
+                      onPressed: (){}, 
+                      icon: const Icon(
+                        Icons.image,
+                        color: Colors.blue,
+                        ),
+                        ),
+            
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.grey
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+
+
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.blue
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
