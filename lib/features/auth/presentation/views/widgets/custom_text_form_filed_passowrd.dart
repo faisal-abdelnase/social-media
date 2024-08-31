@@ -19,8 +19,8 @@ class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowr
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
-        if(value!.isEmpty){
-          return "Filed is request";
+        if(value!.isEmpty || value.length < 7){
+          return "please enter a valid password";
         }
     
         else{

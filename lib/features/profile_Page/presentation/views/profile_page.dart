@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => const Login()));
             }, 
-            icon: const Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.logout),
             ),
         ],
       ),
