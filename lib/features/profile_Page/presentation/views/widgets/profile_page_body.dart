@@ -58,21 +58,23 @@ class ProfilePageBody extends StatelessWidget {
               height: 10,
             ),
       
-            const Divider(),
-      
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      child: Image.asset("assets/images/images.jpg"),
-                    );
-                  },
-                ),
+            const Divider(thickness: 2,),
+
+
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 1,
+              mainAxisSpacing: 1,
+              childAspectRatio: 35/33,
+              crossAxisCount: 2,
+              children: List.generate(5, (index){
+                return Image.asset("assets/images/images.jpg");
+              },
+              ),
             ),
+      
+            
         ],
       ),
     );

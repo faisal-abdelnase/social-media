@@ -20,50 +20,31 @@ class _CommentScreenState extends State<CommentScreen> {
         title: const Text("Comment"),
       ),
 
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Row(
-                    
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage("assets/images/1.jpg"),
-                      ),
-              
-                      SizedBox(width: 15,),
-              
-                      Column(
-                        children: [
-                          Text("Faisal", 
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),),
-                          Text("Good", 
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),),
-                        ],
-                      ),
-              
-                      SizedBox(width: 185,),
-              
-                      CustomIconButtonLove(),
-                    ],
-                  ),
-                ],
+
+            SizedBox(
+              height: 600,
+              child: ListView.builder(
+                shrinkWrap: true,
+                
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: PostComments(),
+                );
+              },
               ),
             ),
         
-            Spacer(),
+            const Spacer(),
         
         
         
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
@@ -79,12 +60,50 @@ class _CommentScreenState extends State<CommentScreen> {
             ),
         
         
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class PostComments extends StatelessWidget {
+  const PostComments({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      
+      children: [
+        CircleAvatar(
+          radius: 30,
+          backgroundImage: AssetImage("assets/images/1.jpg"),
+        ),
+                  
+        SizedBox(width: 15,),
+                  
+        Column(
+          children: [
+            Text("Faisal", 
+            style: TextStyle(
+              fontSize: 18,
+            ),),
+            Text("Good", 
+            style: TextStyle(
+              fontSize: 18,
+            ),),
+          ],
+        ),
+                  
+        SizedBox(width: 185,),
+                  
+        CustomIconButtonLove(),
+      ],
     );
   }
 }

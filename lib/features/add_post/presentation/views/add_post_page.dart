@@ -54,10 +54,11 @@ class AddPostPage extends StatelessWidget {
                 ),
                 ),
         
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                decoration: const InputDecoration(
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                maxLines: 15,
+                decoration: InputDecoration(
                   hintText: "add comment",
                   hintStyle: TextStyle(
                     color: Colors.grey,
