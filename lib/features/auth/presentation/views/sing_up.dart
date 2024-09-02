@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:social_media_app/features/auth/presentation/views/login.dart';
 import 'package:social_media_app/features/auth/presentation/views/widgets/custom_button.dart';
 import 'package:social_media_app/features/auth/presentation/views/widgets/custom_text_form_filed.dart';
@@ -6,9 +9,28 @@ import 'package:social_media_app/features/auth/presentation/views/widgets/custom
 
 
 
-class SingUp extends StatelessWidget {
+class SingUp extends StatefulWidget {
   const SingUp({super.key});
 
+  @override
+  State<SingUp> createState() => _SingUpState();
+}
+
+class _SingUpState extends State<SingUp> {
+
+  File? pickedImage;
+
+  void selectImage() async{
+
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    var selected = File(image!.path);
+
+    setState(() {
+      pickedImage = selected;
+    });
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +54,29 @@ class SingUp extends StatelessWidget {
             
                 Stack(
                   children: [
-                    const CircleAvatar(
+                    pickedImage != null?
+                    CircleAvatar(
                     radius: 35,
-                    // backgroundImage: AssetImage("assets/images/images.jpg"),
+                    backgroundImage: FileImage(pickedImage!),
                     backgroundColor: Colors.white,
+
+                  ):
+                  const CircleAvatar(
+                    radius: 35,
+                    backgroundImage: AssetImage("assets/images/images.jpg"),
+                    backgroundColor: Colors.white,
+
                   ),
+
 
                   Positioned(
                     top: 30,
                     left: 30,
                     child: IconButton(
                     
-                      onPressed: (){}, 
+                      onPressed: (){
+                        selectImage();
+                      }, 
                       icon: const Icon(
                         Icons.add_circle_outline_rounded,
                         color: Colors.black,
