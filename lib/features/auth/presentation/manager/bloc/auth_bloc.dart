@@ -43,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           FirebaseAuth.instance.
           signInWithEmailAndPassword(
             email: event.email, password: event.passowrd);
+            emit(LoginSuccess());
         }on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
               emit(LoginFailuer(errMessage: 'No user found for that email.'));
