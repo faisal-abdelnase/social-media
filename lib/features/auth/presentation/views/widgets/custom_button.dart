@@ -3,10 +3,11 @@ import 'package:social_media_app/features/home/presentation/screen/home_screen.d
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
-    super.key, required this.text,
+    super.key, required this.text, required this.onPressed,
   });
 
   final String text;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +16,7 @@ class CustomButton extends StatelessWidget {
         backgroundColor: Colors.blue,
         padding: const EdgeInsets.symmetric(horizontal: 140, vertical: 10),
       ),
-      onPressed: (){
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
-      }, 
+      onPressed: onPressed,
       child: Text(text, 
       style: const TextStyle(
         color: Colors.white,

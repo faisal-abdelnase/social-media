@@ -7,6 +7,8 @@ import 'package:social_media_app/features/auth/presentation/views/widgets/custom
 class Login extends StatelessWidget {
   const Login({super.key});
 
+  static String id = 'Login';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +60,11 @@ class Login extends StatelessWidget {
           
           
           
-              const CustomButton(text: "Login",),
+              CustomButton(
+                onPressed: () {
+                  
+                },
+                text: "Login",),
           
                 TextButton(
                   onPressed: (){

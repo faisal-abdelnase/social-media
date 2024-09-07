@@ -1,9 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media_app/features/auth/presentation/manager/bloc/auth_bloc.dart';
+import 'package:social_media_app/features/auth/presentation/views/login.dart';
 import 'package:social_media_app/features/auth/presentation/views/sing_up.dart';
+import 'package:social_media_app/features/home/presentation/screen/home_screen.dart';
 import 'package:social_media_app/firebase_options.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -16,14 +20,19 @@ class Intstagram extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthBloc()),
+      ],
+      child: MaterialApp(
+        routes: {
+          Login.id : (context) => const Login(),
+          HomeScreen.id : (context) => const HomeScreen(),
+        },
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),
+        home: const SingUp(),
       ),
-
-      home: const SingUp(),
-
     );
   }
 }

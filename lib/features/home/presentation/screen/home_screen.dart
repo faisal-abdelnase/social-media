@@ -7,6 +7,8 @@ import 'package:social_media_app/features/search_page/presentation/views/search_
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  static String id  = "HomePage";
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
