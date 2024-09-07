@@ -3,10 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class CustomTextFormFiledPassowrd extends StatefulWidget {
-  const CustomTextFormFiledPassowrd({super.key, required this.onFieldSubmitted});
+  const CustomTextFormFiledPassowrd({super.key, required this.onChanged});
 
   
-  final void Function(String) onFieldSubmitted;
+  
+  final void Function(String) onChanged;
 
   @override
   State<CustomTextFormFiledPassowrd> createState() => _CustomTextFormFiledPassowrdState();
@@ -29,7 +30,8 @@ class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowr
           return null;
         }
       },
-      onFieldSubmitted: widget.onFieldSubmitted,
+      
+      onChanged:widget.onChanged,
       obscureText: obscureText,
       decoration:  InputDecoration(
         hintText: "Password",

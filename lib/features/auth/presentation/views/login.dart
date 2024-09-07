@@ -33,14 +33,15 @@ class Login extends StatelessWidget {
               CustomTextFormFiled(
                 hintText: "email", 
                 iconData: Icons.email,
-                onFieldSubmitted: (value) {
+                onChanged: (data) {
                   
                 },
                 ),
               CustomTextFormFiledPassowrd(
-                onFieldSubmitted: (p0) {
-                
-              },),
+                onChanged: (data) {
+                  
+                },
+                ),
 
               Align(
                   alignment: Alignment.bottomRight,

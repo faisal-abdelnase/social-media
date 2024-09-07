@@ -34,6 +34,10 @@ class _SingUpState extends State<SingUp> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
 
+  late String email;
+  late String passowrd;
+
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
@@ -108,22 +112,35 @@ class _SingUpState extends State<SingUp> {
                         CustomTextFormFiled(
                           hintText: "name",
                           iconData: Icons.person,
-                          onFieldSubmitted: (name) {},
+                          
+                          onChanged: (data) {
+                            
+                          },
                         ),
+
                         CustomTextFormFiled(
                           hintText: "email",
                           iconData: Icons.email,
-                          onFieldSubmitted: (email) {},
+                          
+                          onChanged: (data) {
+                            email = data;
+                          },
                         ),
                         CustomTextFormFiledPassowrd(
-                          onFieldSubmitted: (passowrd) {},
+
+                          onChanged: (data) {
+                            passowrd = data;
+                          },
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         CustomButton(
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {}
+                            if (formKey.currentState!.validate()) {
+                              BlocProvider.of<AuthBloc>(context).
+                              add(SingUpEvent(email: email, passowrd: passowrd));
+                            }
                           },
                           text: "Sign up",
                         ),
