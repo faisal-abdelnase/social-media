@@ -92,9 +92,26 @@ class _SingUpState extends State<SingUp> {
                 ),
             
             
-                const CustomTextFormFiled(hintText:  "name", iconData: Icons.person),
-                const CustomTextFormFiled(hintText: "email", iconData: Icons.email),
-                CustomTextFormFiledPassowrd(obscureText: true),
+                CustomTextFormFiled(
+                  hintText:  "name", 
+                  iconData: Icons.person,
+                  onFieldSubmitted: (name) {
+                    
+                  },
+                  ),
+
+
+                CustomTextFormFiled(
+                  hintText: "email", 
+                  iconData: Icons.email,
+                  onFieldSubmitted: (email) {
+                    
+                  },
+                  ),
+                CustomTextFormFiledPassowrd(
+                  onFieldSubmitted: (passowrd) {
+                  
+                },),
             
             
                 const SizedBox(

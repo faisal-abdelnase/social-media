@@ -28,8 +28,18 @@ class Login extends StatelessWidget {
           
           
               
-              const CustomTextFormFiled(hintText: "email", iconData: Icons.email),
-              CustomTextFormFiledPassowrd(obscureText: true),
+              CustomTextFormFiled(
+                hintText: "email", 
+                iconData: Icons.email,
+                onFieldSubmitted: (value) {
+                  
+                },
+                ),
+              CustomTextFormFiledPassowrd(
+                onFieldSubmitted: (p0) {
+                
+              },),
+
               Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(

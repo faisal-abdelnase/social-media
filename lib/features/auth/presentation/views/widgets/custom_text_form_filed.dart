@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormFiled extends StatelessWidget {
   const CustomTextFormFiled({
-    super.key, required this.hintText, required this.iconData,
+    super.key, required this.hintText, required this.iconData, required this.onFieldSubmitted,
   });
+
+  final void Function(String) onFieldSubmitted;
 
   final String hintText;
   final IconData iconData;
@@ -22,6 +24,8 @@ class CustomTextFormFiled extends StatelessWidget {
             return null;
           }
         },
+
+        onFieldSubmitted: onFieldSubmitted,
 
 
         decoration:  InputDecoration(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-// ignore: must_be_immutable
-class CustomTextFormFiledPassowrd extends StatefulWidget {
-  CustomTextFormFiledPassowrd({super.key, required this.obscureText});
 
-  bool obscureText = false;
+class CustomTextFormFiledPassowrd extends StatefulWidget {
+  const CustomTextFormFiledPassowrd({super.key, required this.onFieldSubmitted});
+
+  
+  final void Function(String) onFieldSubmitted;
 
   @override
   State<CustomTextFormFiledPassowrd> createState() => _CustomTextFormFiledPassowrdState();
@@ -14,6 +15,7 @@ class CustomTextFormFiledPassowrd extends StatefulWidget {
 class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowrd> {
   
   IconData iconData = FontAwesomeIcons.eyeSlash;
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,8 @@ class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowr
           return null;
         }
       },
-      obscureText: widget.obscureText,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      obscureText: obscureText,
       decoration:  InputDecoration(
         hintText: "Password",
     
@@ -36,9 +39,9 @@ class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowr
         ),
         suffixIcon: IconButton(
           onPressed: (){
-            if(widget.obscureText == true){
+            if(obscureText == true){
     
-              widget.obscureText = false;
+              obscureText = false;
     
               
               iconData = FontAwesomeIcons.eye;
@@ -50,7 +53,7 @@ class _CustomTextFormFiledPassowrdState extends State<CustomTextFormFiledPassowr
             }
     
             else{
-              widget.obscureText = true;
+              obscureText = true;
               iconData = FontAwesomeIcons.eyeSlash;
     
               setState(() {
