@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/auth/presentation/views/login.dart';
 import 'package:social_media_app/features/home/presentation/screen/widgets/posts.dart';
 
 class HomeScreenBody extends StatefulWidget {
@@ -29,7 +31,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
           
                   IconButton(
-                    onPressed: (){}, 
+                    onPressed: ()async{
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.pushNamed(context, Login.id);
+                    }, 
                     icon: const Icon(
                       Icons.logout,
                       size: 24,
