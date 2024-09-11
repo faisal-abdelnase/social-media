@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
-    super.key,
+    super.key, required this.userImage,
   });
+
+  final String userImage;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const CircleAvatar(
+    CircleAvatar(
       backgroundColor: Colors.white,
       radius: 37,
       child: CircleAvatar(
         radius: 35,
-        backgroundImage: AssetImage("assets/images/1.jpg"),
+        backgroundImage: NetworkImage(userImage),
       ),
     ),
     

@@ -33,7 +33,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
       
-              const ProfileImage(),
+              ProfileImage(userImage: "",),
       
               const CustomProfileInfo(num: 2, text: "Posts",),
               CustomProfileInfo(num: followers, text: "Followers",),

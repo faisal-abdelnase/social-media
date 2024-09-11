@@ -2,7 +2,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media_app/connection_state_stream_builder.dart';
+import 'package:social_media_app/core/provider/user_provider.dart';
 import 'package:social_media_app/features/auth/presentation/manager/bloc/auth_bloc.dart';
 import 'package:social_media_app/features/auth/presentation/views/login.dart';
 import 'package:social_media_app/features/home/presentation/screen/home_screen.dart';
@@ -24,6 +26,7 @@ class Intstagram extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthBloc()),
+        ChangeNotifierProvider(create: (context) => UserProvider(),),
         
       ],
       child: MaterialApp(

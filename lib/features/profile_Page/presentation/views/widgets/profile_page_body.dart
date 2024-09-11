@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media_app/core/provider/user_provider.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/widgets/custom_profile_info.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/widgets/profile_image.dart';
 
@@ -9,6 +11,8 @@ class ProfilePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final userData= Provider.of<UserProvider>(context);
+    
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -17,11 +21,11 @@ class ProfilePageBody extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
       
-              ProfileImage(),
+              ProfileImage(userImage: userData.getUser!.userImage,),
       
               CustomProfileInfo(num: 2, text: "Posts",),
               CustomProfileInfo(num: 1, text: "Followers",),
@@ -30,12 +34,12 @@ class ProfilePageBody extends StatelessWidget {
               
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 8, top: 8, bottom: 16),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 8, bottom: 16),
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text("Faisal", 
-              style: TextStyle(
+              child: Text(userData.getUser!.userName, 
+              style: const TextStyle(
                 fontSize: 24,
               ),
               ),
