@@ -24,6 +24,7 @@ class Intstagram extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthBloc()),
+        
       ],
       child: MaterialApp(
         routes: {

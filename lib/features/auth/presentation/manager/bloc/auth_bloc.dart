@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:social_media_app/core/models/user_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -54,6 +56,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           } catch(e){
             emit(LoginFailuer(errMessage: 'Somthing went wrong'));
           }
+      }
+
+      else if(event is AddUser){
+        try{
+          var users =  
+            FirebaseFirestore.instance.collection("users").
+            doc(FirebaseAuth.instance.currentUser!.uid);
+        
+          users.set(event.user.covertToMap());
+
+        }catch(e){}
       }
 
     });

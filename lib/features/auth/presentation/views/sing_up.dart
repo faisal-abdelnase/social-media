@@ -1,9 +1,13 @@
 import 'dart:io';
 
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:social_media_app/core/models/user_model.dart';
 import 'package:social_media_app/core/show_snack_bar.dart';
 import 'package:social_media_app/features/auth/presentation/manager/bloc/auth_bloc.dart';
 import 'package:social_media_app/features/auth/presentation/views/login.dart';
@@ -11,6 +15,7 @@ import 'package:social_media_app/features/auth/presentation/views/widgets/custom
 import 'package:social_media_app/features/auth/presentation/views/widgets/custom_text_form_filed.dart';
 import 'package:social_media_app/features/auth/presentation/views/widgets/custom_text_form_filed_passowrd.dart';
 import 'package:social_media_app/features/home/presentation/screen/home_screen.dart';
+import 'package:uuid/uuid.dart';
 
 class SingUp extends StatefulWidget {
   const SingUp({super.key});
@@ -21,6 +26,7 @@ class SingUp extends StatefulWidget {
 
 class _SingUpState extends State<SingUp> {
   File? pickedImage;
+  
 
   void selectImage() async {
     var image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -36,6 +42,7 @@ class _SingUpState extends State<SingUp> {
 
   late String email;
   late String passowrd;
+  late String userName;
 
 
   @override
@@ -114,7 +121,7 @@ class _SingUpState extends State<SingUp> {
                           iconData: Icons.person,
                           
                           onChanged: (data) {
-                            
+                            userName = data;
                           },
                         ),
 
@@ -136,14 +143,39 @@ class _SingUpState extends State<SingUp> {
                           height: 20,
                         ),
                         CustomButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               BlocProvider.of<AuthBloc>(context).
                               add(SingUpEvent(email: email, passowrd: passowrd));
+
+
+                              // to give different id every image
+                              final uuId = Uuid().v4();
+
+                              // to add image to storage
+                              final ref = FirebaseStorage.instance.ref()
+                              .child('usersImages').child("${uuId}jpg");
+
+                              await ref.putFile(pickedImage!);
+                              final imageUrl = await ref.getDownloadURL();
+
+                              UserModel user = UserModel(
+                                passowrd: passowrd, 
+                                email: email, 
+                                userName: userName, 
+                                userImage: imageUrl, 
+                                uID: FirebaseAuth.instance.currentUser!.uid, 
+                                followers: [], 
+                                folloeing: []);
+
+                                BlocProvider.of<AuthBloc>(context).
+                              add(AddUser(user: user));
                             }
                           },
                           text: "Sign up",
                         ),
+
+                        // this button to sign up
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(

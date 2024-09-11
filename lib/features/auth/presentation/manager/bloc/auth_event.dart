@@ -18,3 +18,10 @@ class LoginEvent extends AuthEvent{
 
   LoginEvent({required this.email, required this.passowrd});
 }
+
+class AddUser extends AuthEvent{
+
+  final UserModel user;
+
+  AddUser({required this.user});
+}
