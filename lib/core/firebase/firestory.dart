@@ -7,7 +7,7 @@ class FireStoreMethod{
 
   // get user data
 
-  Future<UserModel> UserDetails() async{
+  Future<UserModel> userDetails() async{
 
     var user = await FirebaseFirestore.instance.
     collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();

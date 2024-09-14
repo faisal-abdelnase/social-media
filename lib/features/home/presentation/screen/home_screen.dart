@@ -18,10 +18,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   int currentIndex = 0;
+  
 
   @override
   void initState() {
-    final userData = Provider.of<UserProvider>(context, listen: false).fetchUser();
+    Provider.of<UserProvider>(context, listen: false).fetchUser();
     super.initState();
   }
   

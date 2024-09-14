@@ -13,7 +13,7 @@ class UserProvider with ChangeNotifier {
 
   void fetchUser() async{
 
-    userModel = await FireStoreMethod().UserDetails();
+    userModel = await FireStoreMethod().userDetails();
 
     notifyListeners();
 
