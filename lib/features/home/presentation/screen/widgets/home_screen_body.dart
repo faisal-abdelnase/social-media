@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/features/auth/presentation/views/login.dart';
@@ -63,13 +64,33 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 ),
           
               
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 4,
-                itemBuilder: (context, index){
-                  return const Posts();
-                })
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+                builder: (context, snapshot) {
+
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return const CircularProgressIndicator();
+                  }
+
+                  if(snapshot.hasError){
+                    return const Center(
+                      child: Text("Erro", 
+                      style: TextStyle(
+                        color: Colors.red, 
+                        fontSize: 24),));
+                  }
+                  
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index){
+                      Map<String, dynamic> posts = 
+                      snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                      return Posts(posts: posts,);
+                    });
+                }
+              )
               
             ],
           ),

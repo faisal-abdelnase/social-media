@@ -4,7 +4,9 @@ import 'package:social_media_app/features/home/presentation/screen/comment_scree
 import 'package:social_media_app/features/home/presentation/screen/widgets/custom_icon_button_love.dart';
 
 class Posts extends StatelessWidget {
-  const Posts({super.key});
+  const Posts({super.key, required this.posts});
+
+  final Map<String, dynamic> posts;
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +17,20 @@ class Posts extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               children: [
                 
             CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage("assets/images/1.jpg"),
+              backgroundImage: NetworkImage(posts['userImage']),
             ),
             
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
             
-            Text("Faisal",
-            style: TextStyle(
+            Text(posts['userName'],
+            style: const TextStyle(
               fontSize: 24
             ),),
               ],
@@ -50,9 +52,9 @@ class Posts extends StatelessWidget {
             height: 400,
             width: double.infinity,
             // margin: const EdgeInsets.symmetric( horizontal: 8),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/1.jpg"),
+                image: NetworkImage(posts['ImagePost']),
                 fit: BoxFit.cover
                 ),
             ),
@@ -90,8 +92,8 @@ class Posts extends StatelessWidget {
                       ),
 
 
-                const Text("nice photot", 
-                style: TextStyle(
+                Text(posts['des'], 
+                style: const TextStyle(
                   fontSize: 18
                 ),
                 ),
