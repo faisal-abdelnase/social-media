@@ -34,4 +34,13 @@ class FireStoreMethod{
       });
     }
   }
+
+
+  // delete post
+
+  deletePost({required Map post}) async{
+    if(FirebaseAuth.instance.currentUser!.uid == post["uid"]){
+      await FirebaseFirestore.instance.collection("posts").doc(post['postID']).delete();
+    }
+  }
 }

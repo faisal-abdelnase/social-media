@@ -45,7 +45,9 @@ class _PostsState extends State<Posts> {
             ),
             
             IconButton(
-              onPressed: (){}, 
+              onPressed: (){
+                FireStoreMethod().deletePost(post: widget.posts);
+              }, 
               icon: const Icon(Icons.remove))
           ],
         ),
@@ -59,7 +61,7 @@ class _PostsState extends State<Posts> {
           Container(
             height: 400,
             width: double.infinity,
-            // margin: const EdgeInsets.symmetric( horizontal: 8),
+            
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(widget.posts['ImagePost']),
@@ -75,9 +77,6 @@ class _PostsState extends State<Posts> {
               CustomIconButtonLove(
                 onPressed: (){
                       FireStoreMethod().addPost(postMap: widget.posts);
-                      setState(() {
-                      
-                      });
                   
                 },
 
@@ -105,8 +104,8 @@ class _PostsState extends State<Posts> {
 
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("0likes", 
-                style: TextStyle(
+                Text("${widget.posts["likes"].length} likes", 
+                style: const TextStyle(
                   fontSize: 18,
                 ),),
 
