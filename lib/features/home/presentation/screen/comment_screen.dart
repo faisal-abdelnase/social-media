@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/features/home/presentation/screen/widgets/custom_icon_button_love.dart';
+
 import 'package:social_media_app/features/home/presentation/screen/widgets/custom_text_form_filed_comment.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -102,7 +102,7 @@ class PostComments extends StatelessWidget {
                   
         SizedBox(width: 185,),
                   
-        CustomIconButtonLove(),
+        // CustomIconButtonLove(),
       ],
     );
   }

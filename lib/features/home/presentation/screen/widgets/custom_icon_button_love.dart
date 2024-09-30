@@ -1,36 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomIconButtonLove extends StatefulWidget {
+
+class CustomIconButtonLove extends StatelessWidget {
   const CustomIconButtonLove({
-    super.key,
+    super.key, required this.onPressed, required this.iconColor,
   });
+  final Function() onPressed;
+  final Color iconColor;
 
-  @override
-  State<CustomIconButtonLove> createState() => _CustomIconButtonLoveState();
-}
-
-class _CustomIconButtonLoveState extends State<CustomIconButtonLove> {
-
-  Color iconColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return IconButton(
-          onPressed: (){
-            if(iconColor == Colors.white){
-              iconColor = Colors.red;
-              setState(() {
-              
-              });
-            }
-            
-            else{
-              iconColor = Colors.white;
-              setState(() {
-                
-              });
-            }
-        }, 
+          onPressed: onPressed,
         icon: Icon(
             FontAwesomeIcons.solidHeart,
             color: iconColor,

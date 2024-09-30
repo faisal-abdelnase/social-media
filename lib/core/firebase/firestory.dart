@@ -13,4 +13,25 @@ class FireStoreMethod{
     collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();
     return UserModel.fromJeson(user);
   }
+
+
+
+  // add post
+
+  addPost({required Map postMap}) async{
+    if(postMap["likes"].contains(FirebaseAuth.instance.currentUser!.uid)){
+      await FirebaseFirestore.instance.
+      collection("posts").doc(postMap["postID"]).update({
+        'likes' : FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.uid]),
+      });
+    }
+
+
+    else{
+      await FirebaseFirestore.instance.
+      collection("posts").doc(postMap["postID"]).update({
+        'likes' : FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid]),
+      });
+    }
+  }
 }

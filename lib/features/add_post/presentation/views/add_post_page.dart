@@ -48,7 +48,7 @@ class _AddPostPageState extends State<AddPostPage> {
 
 
 
-      FirebaseFirestore.instance.collection("posts").add(
+      FirebaseFirestore.instance.collection("posts").doc(uuId).set(
         {
           "userName" : userProvider.getUser!.userName,
           "uid" : userProvider.getUser!.uID,
@@ -56,6 +56,7 @@ class _AddPostPageState extends State<AddPostPage> {
           "ImagePost" : imageUrl,
           "postID" : uuId,
           "des" : des.text,
+          'likes' : [],
         }
       );
 

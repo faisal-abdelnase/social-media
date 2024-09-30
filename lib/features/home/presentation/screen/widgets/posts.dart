@@ -1,13 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:social_media_app/core/firebase/firestory.dart';
 import 'package:social_media_app/features/home/presentation/screen/comment_screen.dart';
 import 'package:social_media_app/features/home/presentation/screen/widgets/custom_icon_button_love.dart';
 
-class Posts extends StatelessWidget {
+class Posts extends StatefulWidget {
   const Posts({super.key, required this.posts});
 
   final Map<String, dynamic> posts;
 
+  @override
+  State<Posts> createState() => _PostsState();
+}
+
+class _PostsState extends State<Posts> {
+  Color iconColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,14 +30,14 @@ class Posts extends StatelessWidget {
                 
             CircleAvatar(
               radius: 30,
-              backgroundImage: NetworkImage(posts['userImage']),
+              backgroundImage: NetworkImage(widget.posts['userImage']),
             ),
             
             const SizedBox(
               width: 15,
             ),
             
-            Text(posts['userName'],
+            Text(widget.posts['userName'],
             style: const TextStyle(
               fontSize: 24
             ),),
@@ -54,7 +62,7 @@ class Posts extends StatelessWidget {
             // margin: const EdgeInsets.symmetric( horizontal: 8),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(posts['ImagePost']),
+                image: NetworkImage(widget.posts['ImagePost']),
                 fit: BoxFit.cover
                 ),
             ),
@@ -63,7 +71,22 @@ class Posts extends StatelessWidget {
           Row(
             children: [
               
-              const CustomIconButtonLove(),
+
+              CustomIconButtonLove(
+                onPressed: (){
+                      FireStoreMethod().addPost(postMap: widget.posts);
+                      setState(() {
+                      
+                      });
+                  
+                },
+
+                iconColor:(widget.posts['likes'] as List).
+                contains(FirebaseAuth.instance.currentUser!.uid) 
+                  ? Colors.red 
+                  : Colors.white
+
+        ),
 
             IconButton(
             onPressed: (){
@@ -92,7 +115,7 @@ class Posts extends StatelessWidget {
                       ),
 
 
-                Text(posts['des'], 
+                Text(widget.posts['des'], 
                 style: const TextStyle(
                   fontSize: 18
                 ),
