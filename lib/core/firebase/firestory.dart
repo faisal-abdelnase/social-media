@@ -48,7 +48,7 @@ class FireStoreMethod{
 
   // add comments
 
-  addCommetn({required comment, required userImage, required uID, required postID})async{
+  addCommetn({required comment, required userImage, required uID, required postID, required userName})async{
 
         final uuid = Uuid().v4();
 
@@ -60,6 +60,7 @@ class FireStoreMethod{
           "uID" : uID,
           "postID": postID,
           "commentID" : uuid,
+          "userName" : userName,
         });
 
         

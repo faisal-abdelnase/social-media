@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/core/provider/user_provider.dart';
-import 'package:social_media_app/features/home/presentation/screen/widgets/custom_icon_button_love.dart';
-
 import 'package:social_media_app/features/home/presentation/screen/widgets/custom_text_form_filed_comment.dart';
+import 'package:social_media_app/features/home/presentation/screen/widgets/post_comments.dart';
+
 
 class CommentScreen extends StatefulWidget {
   const CommentScreen({super.key, required this.postID, });
@@ -17,9 +18,10 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
 
   Color iconColor = Colors.white;
+
   @override
   Widget build(BuildContext context) {
-    final userData= Provider.of<UserProvider>(context);
+    final userData = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -27,96 +29,55 @@ class _CommentScreenState extends State<CommentScreen> {
       ),
 
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-          
-              SizedBox(
-                height: 650,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: PostComments(),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+
+            Expanded(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("posts")
+                    .doc(widget.postID)
+                    .collection("comments")
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> comment = snapshot.data!.docs[index].data();
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: PostComments(comment: comment),
+                      );
+                    },
                   );
-                },
-                ),
+                }
               ),
+            ),
+
           
-              
-          
-          
-          
-              Row(
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(userData.getUser!.userImage),
-                    ),
-                        
-                    
-                        
-                    CommentTextFormFiled(postID: widget.postID,),
-                  
+                    radius: 30,
+                    backgroundImage: NetworkImage(userData.getUser!.userImage),
+                  ),
+                  Expanded(
+                    child: CommentTextFormFiled(postID: widget.postID),
+                  ),
                 ],
               ),
-          
-          
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class PostComments extends StatelessWidget {
-  const PostComments({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return  Row(
-      
-      children: [
-        const CircleAvatar(
-          radius: 30,
-          backgroundImage: AssetImage("assets/images/1.jpg"),
-        ),
-                  
-        const SizedBox(width: 15,),
-                  
-        const Column(
-          children: [
-            Text("Faisal", 
-            style: TextStyle(
-              fontSize: 18,
-            ),),
-            Text("Good", 
-            style: TextStyle(
-              fontSize: 18,
-            ),),
+            ),
           ],
         ),
-                  
-        const SizedBox(width: 185,),
-                  
-        CustomIconButtonLove(
-          onPressed: () {
-          
-        },
-        iconColor: Colors.white,
-        ),
-      ],
+      ),
     );
   }
 }

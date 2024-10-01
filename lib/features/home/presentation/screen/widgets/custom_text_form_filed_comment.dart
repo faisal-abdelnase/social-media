@@ -40,7 +40,9 @@ class _CommentTextFormFiledState extends State<CommentTextFormFiled> {
                     comment: comment.text, 
                     userImage: userData.getUser!.userImage, 
                     uID: userData.getUser!.uID, 
-                    postID: widget.postID);
+                    postID: widget.postID,
+                    userName: userData.getUser!.userName,
+                    );
 
                     comment.text = "";
               }
