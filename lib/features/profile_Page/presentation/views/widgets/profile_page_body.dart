@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/core/provider/user_provider.dart';
@@ -62,20 +64,31 @@ class ProfilePageBody extends StatelessWidget {
               height: 10,
             ),
       
-            const Divider(thickness: 2,),
+            const Divider(thickness: 3,),
 
 
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 1,
-              mainAxisSpacing: 1,
-              childAspectRatio: 35/33,
-              crossAxisCount: 2,
-              children: List.generate(5, (index){
-                return Image.asset("assets/images/images.jpg");
-              },
-              ),
+            FutureBuilder(
+              future: FirebaseFirestore.instance.
+              collection("posts").
+              where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get(),
+              builder: (context, snapshot) {
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return const Center(child: CircularProgressIndicator(),);
+                }
+                return GridView.count(
+                  padding: const EdgeInsets.all(8),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 35/33,
+                  crossAxisCount: 2,
+                  children: List.generate(snapshot.data!.docs.length, (index){
+                    return Image.network(snapshot.data!.docs[index]["ImagePost"], height: 100, width: 100, fit: BoxFit.fill,);
+                  },
+                  ),
+                );
+              }
             ),
       
             
