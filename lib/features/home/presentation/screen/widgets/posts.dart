@@ -128,7 +128,7 @@ class _PostsState extends State<Posts> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const CommentScreen()));
+                        MaterialPageRoute(builder: (context) => CommentScreen(postID: widget.posts['postID'],)));
                     },
                     child: const Text("Add comment", 
                     style: TextStyle(

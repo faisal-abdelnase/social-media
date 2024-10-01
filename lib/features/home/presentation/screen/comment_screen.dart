@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media_app/core/provider/user_provider.dart';
+import 'package:social_media_app/features/home/presentation/screen/widgets/custom_icon_button_love.dart';
 
 import 'package:social_media_app/features/home/presentation/screen/widgets/custom_text_form_filed_comment.dart';
 
 class CommentScreen extends StatefulWidget {
-  const CommentScreen({super.key});
+  const CommentScreen({super.key, required this.postID, });
+
+  final String postID;
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();
@@ -14,6 +19,7 @@ class _CommentScreenState extends State<CommentScreen> {
   Color iconColor = Colors.white;
   @override
   Widget build(BuildContext context) {
+    final userData= Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -22,48 +28,50 @@ class _CommentScreenState extends State<CommentScreen> {
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-
-            SizedBox(
-              height: 600,
-              child: ListView.builder(
-                shrinkWrap: true,
-                
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: PostComments(),
-                );
-              },
-              ),
-            ),
-        
-            const Spacer(),
-        
-        
-        
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage("assets/images/1.jpg"),
-                  ),
-
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+          
+              SizedBox(
+                height: 650,
+                child: ListView.builder(
+                  shrinkWrap: true,
                   
-
-                  CustomTextFormFiled(),
-                
-              ],
-            ),
-        
-        
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: PostComments(),
+                  );
+                },
+                ),
+              ),
+          
+              
+          
+          
+          
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(userData.getUser!.userImage),
+                    ),
+                        
+                    
+                        
+                    CommentTextFormFiled(postID: widget.postID,),
+                  
+                ],
+              ),
+          
+          
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -77,17 +85,17 @@ class PostComments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           radius: 30,
           backgroundImage: AssetImage("assets/images/1.jpg"),
         ),
                   
-        SizedBox(width: 15,),
+        const SizedBox(width: 15,),
                   
-        Column(
+        const Column(
           children: [
             Text("Faisal", 
             style: TextStyle(
@@ -100,9 +108,14 @@ class PostComments extends StatelessWidget {
           ],
         ),
                   
-        SizedBox(width: 185,),
+        const SizedBox(width: 185,),
                   
-        // CustomIconButtonLove(),
+        CustomIconButtonLove(
+          onPressed: () {
+          
+        },
+        iconColor: Colors.white,
+        ),
       ],
     );
   }

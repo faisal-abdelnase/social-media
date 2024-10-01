@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:social_media_app/core/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 class FireStoreMethod{
 
@@ -42,5 +43,25 @@ class FireStoreMethod{
     if(FirebaseAuth.instance.currentUser!.uid == post["uid"]){
       await FirebaseFirestore.instance.collection("posts").doc(post['postID']).delete();
     }
+  }
+
+
+  // add comments
+
+  addCommetn({required comment, required userImage, required uID, required postID})async{
+
+        final uuid = Uuid().v4();
+
+        await FirebaseFirestore.instance.
+        collection("posts").doc(postID).
+        collection('comments').doc(uuid).set({
+          "comment" : comment,
+          "userImage" : userImage,
+          "uID" : uID,
+          "postID": postID,
+          "commentID" : uuid,
+        });
+
+        
   }
 }
