@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/features/search_page/presentation/views/chat_page.dart';
 import 'package:social_media_app/features/search_page/presentation/views/search_profile_page.dart';
@@ -24,6 +25,12 @@ class _SearchPageState extends State<SearchPage> {
             ),
             TextFormField(
               controller: searchController,
+
+              onChanged: (value) {
+                setState(() {
+                  
+                });
+              },
       
               decoration: InputDecoration(
                 hintText: "search",
@@ -49,51 +56,48 @@ class _SearchPageState extends State<SearchPage> {
 
 
             Expanded(
-              child: SizedBox(
-              
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index){
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => const SearchProfilePage()));
-                        },
-                        child: Row(
-                          
-                          children: [
-                            const CircleAvatar(
-                              backgroundImage: AssetImage("assets/images/1.jpg"),
-                            ),
-                        
-                            const SizedBox(
-                              width: 20,
-                            ),
-                        
-                            const Text("Faisal", 
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                        
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                  onPressed: (){
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) => const ChatPage()));
-                                  }, 
-                                  icon: const Icon(Icons.chat_bubble_outline)),
+              child: FutureBuilder(
+                future: FirebaseFirestore.instance.
+                collection("users").
+                where("userName", isEqualTo: searchController.text).get(),
+                builder: (context,snapshot) {
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return const Center(child: CircularProgressIndicator(),);
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index){
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => const SearchProfilePage()));
+                          },
+                          child: ListTile(
+                            leading: CircleAvatar(
+                                backgroundImage: NetworkImage(snapshot.data!.docs[index]["userImage"]),
                               ),
-                            )
-                          ],
+                  
+                            title: Text(snapshot.data!.docs[index]["userName"], 
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              ),
+                  
+                            trailing: IconButton(
+                                    onPressed: (){
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) => const ChatPage()));
+                                    }, 
+                                    icon: const Icon(Icons.chat_bubble_outline)),
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    });
+                }
               ),
             )
           ],
@@ -102,3 +106,8 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
+
+
+
+
+
