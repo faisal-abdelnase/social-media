@@ -69,8 +69,8 @@ final userData= Provider.of<UserProvider>(context);
               ProfileImage(userImage: userData.getUser!.userImage,),
       
               CustomProfileInfo(num: 2, text: "Posts",),
-              CustomProfileInfo(num: 1, text: "Followers",),
-              CustomProfileInfo(num: 1, text: "Following",),
+              CustomProfileInfo(num: userData.getUser!.followers.length, text: "Followers",),
+              CustomProfileInfo(num: userData.getUser!.folloeing.length, text: "Following",),
       
               
             ],
@@ -96,12 +96,15 @@ final userData= Provider.of<UserProvider>(context);
             ),
             onPressed: (){
               if(inFollowing == true){
+                // unFollow
+                
+                FireStoreMethod().unFollowUser(userId: widget.userid);
 
                 setState(() {
                   inFollowing = false;
                 });
-                return ;
-                // unFollow
+                
+                
               }
 
               else{

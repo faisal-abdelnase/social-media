@@ -90,4 +90,29 @@ class FireStoreMethod{
       'followers' : FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid])
     });
   }
+
+
+
+
+
+ // un follow to user
+
+  unFollowUser({required userId}) async{
+
+    // update my profile
+    await FirebaseFirestore.instance.
+    collection("users").
+    doc(FirebaseAuth.instance.currentUser!.uid).update({
+      'folloeing' : FieldValue.arrayRemove([userId])
+    });
+
+
+
+    // update profile friend 
+    await FirebaseFirestore.instance.
+    collection("users").
+    doc(userId).update({
+      'followers' : FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.uid])
+    });
+  }
 }
