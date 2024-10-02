@@ -6,14 +6,30 @@ import 'package:social_media_app/core/provider/user_provider.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/widgets/custom_profile_info.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/widgets/profile_image.dart';
 
-class ProfilePageBody extends StatelessWidget {
+class ProfilePageBody extends StatefulWidget {
   const ProfilePageBody({
-    super.key,
+    super.key, required this.userid,
   });
 
+  final String userid;
+
+  @override
+  State<ProfilePageBody> createState() => _ProfilePageBodyState();
+}
+
+class _ProfilePageBodyState extends State<ProfilePageBody> {
+
+
+  @override
+  void initState() {
+    Provider.of<UserProvider>(context, listen: false).fetchUser(userid: widget.userid);
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
-  final userData= Provider.of<UserProvider>(context);
+final userData= Provider.of<UserProvider>(context);
+  
     
     return SingleChildScrollView(
       child: Column(
@@ -54,7 +70,13 @@ class ProfilePageBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 10),
             ),
             onPressed: (){}, 
-            child: const Text("Edit profile", 
+            child: widget.userid == FirebaseAuth.instance.currentUser!.uid?
+            const Text("Edit profile", 
+            style: TextStyle(
+              color: Colors.white
+            ),)
+
+            : const Text("Follow", 
             style: TextStyle(
               color: Colors.white
             ),),
@@ -70,10 +92,14 @@ class ProfilePageBody extends StatelessWidget {
             FutureBuilder(
               future: FirebaseFirestore.instance.
               collection("posts").
-              where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get(),
+              where("uid", isEqualTo: widget.userid).get(),
               builder: (context, snapshot) {
                 if(snapshot.connectionState == ConnectionState.waiting){
                   return const Center(child: CircularProgressIndicator(),);
+                }
+
+                if(snapshot.hasError){
+                  return const Center(child: Text("Erorr"),);
                 }
                 return GridView.count(
                   padding: const EdgeInsets.all(8),

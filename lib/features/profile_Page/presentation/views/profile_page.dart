@@ -4,8 +4,9 @@ import 'package:social_media_app/features/profile_Page/presentation/views/widget
 
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required this.userid});
 
+  final String userid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,7 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
 
-      body: const ProfilePageBody(),
+      body: ProfilePageBody(userid: userid,),
     );
   }
 }

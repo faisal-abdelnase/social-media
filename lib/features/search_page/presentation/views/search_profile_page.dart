@@ -33,7 +33,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
       
-              ProfileImage(userImage: "",),
+              const ProfileImage(userImage: "https://cdn.pixabay.com/photo/2024/05/08/17/45/animal-8748794_640.jpg",),
       
               const CustomProfileInfo(num: 2, text: "Posts",),
               CustomProfileInfo(num: followers, text: "Followers",),
@@ -91,21 +91,21 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
               height: 10,
             ),
       
-            const Divider(),
+            const Divider(thickness: 3,),
       
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      child: Image.asset("assets/images/images.jpg"),
-                    );
+            GridView.count(
+                  padding: const EdgeInsets.all(8),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 35/33,
+                  crossAxisCount: 2,
+                  children: List.generate(5, (index){
+                    return Image.asset('assets/images/images.jpg', height: 100, width: 100, fit: BoxFit.fill,);
                   },
+                  ),
                 ),
-            ),
         ],
       ),
     ),

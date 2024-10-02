@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media_app/core/provider/user_provider.dart';
 import 'package:social_media_app/features/auth/presentation/views/login.dart';
 import 'package:social_media_app/features/home/presentation/screen/widgets/posts.dart';
 
@@ -12,9 +14,17 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
+
+  @override
+  void initState() {
+    Provider.of<UserProvider>(context, listen: false).
+    fetchUser(userid: FirebaseAuth.instance.currentUser!.uid);
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),

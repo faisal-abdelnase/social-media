@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/profile_Page/presentation/views/profile_page.dart';
 import 'package:social_media_app/features/search_page/presentation/views/chat_page.dart';
-import 'package:social_media_app/features/search_page/presentation/views/search_profile_page.dart';
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -70,30 +71,30 @@ class _SearchPageState extends State<SearchPage> {
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: GestureDetector(
+                        child: ListTile(
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => const SearchProfilePage()));
+                              MaterialPageRoute(
+                                builder: (context) =>  ProfilePage(
+                                  userid: snapshot.data!.docs[index]["uID"],)));
                           },
-                          child: ListTile(
-                            leading: CircleAvatar(
-                                backgroundImage: NetworkImage(snapshot.data!.docs[index]["userImage"]),
-                              ),
-                  
-                            title: Text(snapshot.data!.docs[index]["userName"], 
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              ),
-                  
-                            trailing: IconButton(
-                                    onPressed: (){
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) => const ChatPage()));
-                                    }, 
-                                    icon: const Icon(Icons.chat_bubble_outline)),
-                          ),
+                          leading: CircleAvatar(
+                              backgroundImage: NetworkImage(snapshot.data!.docs[index]["userImage"]),
+                            ),
+                                          
+                          title: Text(snapshot.data!.docs[index]["userName"], 
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            ),
+                                          
+                          trailing: IconButton(
+                                  onPressed: (){
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => const ChatPage()));
+                                  }, 
+                                  icon: const Icon(Icons.chat_bubble_outline)),
                         ),
                       );
                     });
