@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media_app/core/firebase/firestory.dart';
 import 'package:social_media_app/core/provider/user_provider.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/widgets/custom_profile_info.dart';
 import 'package:social_media_app/features/profile_Page/presentation/views/widgets/profile_image.dart';
@@ -20,10 +21,32 @@ class ProfilePageBody extends StatefulWidget {
 class _ProfilePageBodyState extends State<ProfilePageBody> {
 
 
+  late List following;
+  late bool inFollowing;
+  bool isLoding = false;
+
+  void fetchCurrentUser() async {
+    setState(() {
+      isLoding = true;
+    });
+    
+    var snapshot = await FirebaseFirestore.instance.
+    collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+    following = snapshot.data()!["folloeing"];
+    setState(() {
+      inFollowing = following.contains(widget.userid);
+      isLoding = false;
+    });
+  }
+
+
   @override
   void initState() {
     Provider.of<UserProvider>(context, listen: false).fetchUser(userid: widget.userid);
     super.initState();
+
+    fetchCurrentUser();
   }
   
   @override
@@ -31,7 +54,7 @@ class _ProfilePageBodyState extends State<ProfilePageBody> {
 final userData= Provider.of<UserProvider>(context);
   
     
-    return SingleChildScrollView(
+    return isLoding == true? const Center(child: CircularProgressIndicator()) : SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -68,18 +91,43 @@ final userData= Provider.of<UserProvider>(context);
 
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 10),
+              backgroundColor: inFollowing == true? Colors.red 
+              : Colors.grey[900],
             ),
-            onPressed: (){}, 
+            onPressed: (){
+              if(inFollowing == true){
+
+                setState(() {
+                  inFollowing = false;
+                });
+                return ;
+                // unFollow
+              }
+
+              else{
+                // follow
+                setState(() {
+                  inFollowing = true;
+                });
+                FireStoreMethod().followUser(userId: widget.userid);
+              }
+
+
+            }, 
             child: widget.userid == FirebaseAuth.instance.currentUser!.uid?
             const Text("Edit profile", 
             style: TextStyle(
               color: Colors.white
             ),)
 
+            : inFollowing == true ? const Text("unFollow", 
+            style: TextStyle(
+              color: Colors.white
+            ),)
             : const Text("Follow", 
             style: TextStyle(
               color: Colors.white
-            ),),
+            ),)
             ),
       
             const SizedBox(

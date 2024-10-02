@@ -65,4 +65,29 @@ class FireStoreMethod{
 
         
   }
+
+
+
+
+
+  // follow to user
+
+  followUser({required userId}) async{
+
+    // update my profile
+    await FirebaseFirestore.instance.
+    collection("users").
+    doc(FirebaseAuth.instance.currentUser!.uid).update({
+      'folloeing' : FieldValue.arrayUnion([userId])
+    });
+
+
+
+    // update profile friend 
+    await FirebaseFirestore.instance.
+    collection("users").
+    doc(userId).update({
+      'followers' : FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid])
+    });
+  }
 }

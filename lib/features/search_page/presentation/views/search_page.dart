@@ -73,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: ListTile(
                           onTap: () {
-                            Navigator.of(context).push(
+                            Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) =>  ProfilePage(
                                   userid: snapshot.data!.docs[index]["uID"],)));
