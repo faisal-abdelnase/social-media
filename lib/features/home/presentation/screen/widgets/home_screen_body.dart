@@ -75,7 +75,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           
               
               StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+                stream: FirebaseFirestore.instance.
+                collection('posts').orderBy("date", descending: true).snapshots(),
                 builder: (context, snapshot) {
 
                   if(snapshot.connectionState == ConnectionState.waiting){

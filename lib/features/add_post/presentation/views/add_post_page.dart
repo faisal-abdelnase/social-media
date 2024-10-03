@@ -57,6 +57,7 @@ class _AddPostPageState extends State<AddPostPage> {
           "postID" : uuId,
           "des" : des.text,
           'likes' : [],
+          'date' : Timestamp.now(),
         }
       );
 

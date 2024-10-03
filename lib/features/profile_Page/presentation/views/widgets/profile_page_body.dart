@@ -24,6 +24,7 @@ class _ProfilePageBodyState extends State<ProfilePageBody> {
   late List following;
   late bool inFollowing;
   bool isLoding = false;
+  int postCount = 0;
 
   void fetchCurrentUser() async {
     setState(() {
@@ -33,11 +34,20 @@ class _ProfilePageBodyState extends State<ProfilePageBody> {
     var snapshot = await FirebaseFirestore.instance.
     collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();
 
+
     following = snapshot.data()!["folloeing"];
     setState(() {
       inFollowing = following.contains(widget.userid);
       isLoding = false;
     });
+
+    // number of posts
+
+    var snap = await FirebaseFirestore.instance.
+    collection("posts").
+    where('uid', isEqualTo: widget.userid).get();
+
+    postCount = snap.docs.length;
   }
 
 
@@ -68,7 +78,7 @@ final userData= Provider.of<UserProvider>(context);
       
               ProfileImage(userImage: userData.getUser!.userImage,),
       
-              CustomProfileInfo(num: 2, text: "Posts",),
+              CustomProfileInfo(num: postCount, text: "Posts",),
               CustomProfileInfo(num: userData.getUser!.followers.length, text: "Followers",),
               CustomProfileInfo(num: userData.getUser!.folloeing.length, text: "Following",),
       

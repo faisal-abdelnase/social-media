@@ -142,7 +142,7 @@ class _PostsState extends State<Posts> {
                         height: 15,
                       ),
 
-                    Text(DateFormat("EEE,MMM d").format(DateTime.now()), 
+                    Text(DateFormat.MMMEd().format(widget.posts["date"].toDate()), 
                     style: const TextStyle(
                       fontSize: 18,
                     ),),

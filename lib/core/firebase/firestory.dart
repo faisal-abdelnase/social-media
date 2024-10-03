@@ -61,6 +61,7 @@ class FireStoreMethod{
           "postID": postID,
           "commentID" : uuid,
           "userName" : userName,
+          "date" : Timestamp.now(),
         });
 
         
