@@ -19,4 +19,18 @@ class UserProvider with ChangeNotifier {
 
   }
 
+
+  void increaseFollowers(){
+
+    getUser!.followers.length++;
+    notifyListeners();
+  }
+
+
+  void decreaseFollowers(){
+
+    getUser!.followers.length--;
+    notifyListeners();
+  }
+
 }

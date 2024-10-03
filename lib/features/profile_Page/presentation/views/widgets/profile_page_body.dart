@@ -99,10 +99,13 @@ final userData= Provider.of<UserProvider>(context);
                 // unFollow
                 
                 FireStoreMethod().unFollowUser(userId: widget.userid);
+                userData.decreaseFollowers();
 
                 setState(() {
                   inFollowing = false;
                 });
+
+
                 
                 
               }
@@ -113,6 +116,7 @@ final userData= Provider.of<UserProvider>(context);
                   inFollowing = true;
                 });
                 FireStoreMethod().followUser(userId: widget.userid);
+                userData.increaseFollowers();
               }
 
 
